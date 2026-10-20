@@ -1,0 +1,26 @@
+# Dependencies and build output
+node_modules/
+dist/
+release/
+
+# Local/editor/OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+npm-debug.log*
+
+# Environment and credentials (never commit secrets)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local packaging outputs
+*.exe
+*.msi

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="theme-color" content="#060a12">
+  <meta name="description" content="CINDER SIGNAL: NIGHT DISPATCH — un roguelite de acción donde tu linterna es tu arma, tu escudo y tu límite.">
+  <title>CINDER SIGNAL: NIGHT DISPATCH</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="shell">
+    <canvas id="game" width="1280" height="720" aria-label="CINDER SIGNAL: NIGHT DISPATCH game canvas"></canvas>
+    <div class="vignette"></div>
+
+    <section id="main-menu" class="screen menu-screen">
+      <div class="menu-copy">
+        <div class="eyebrow"><span class="signal-dot"></span><span data-i18n="eyebrow">SEÑAL PERDIDA · DISTRITO 07</span></div>
+        <h1>CINDER<span>:</span><br><em>SIGNAL</em></h1>
+        <p class="subtitle" data-i18n="tagline">La oscuridad no te persigue. Espera a que apagues la luz.</p>
+        <div class="menu-buttons">
+          <button id="play-btn" class="button primary"><span class="button-icon">▶</span><span data-i18n="play">INICIAR TURNO</span></button>
+          <button id="level2-btn" class="button campaign-level-btn" title="Nivel 02"><span class="button-icon">✧</span><span id="level2-label">NIVEL 02 · OBSERVATORIO INVERTIDO · BLOQUEADO</span></button>
+          <button id="armory-btn" class="button"><span class="button-icon">⌬</span><span data-i18n="armory">TALLER DE ECOS</span></button>
+          <button id="how-btn" class="button"><span class="button-icon">?</span><span data-i18n="how">CÓMO SOBREVIVIR</span></button>
+        </div>
+        <div class="menu-footer">
+          <div><small data-i18n="best">MEJOR TIEMPO</small><strong id="best-time">—</strong></div>
+          <div><small data-i18n="bank">ECOS GUARDADOS</small><strong id="bank-count">0</strong></div>
+          <div><small data-i18n="runs">TURNOS</small><strong id="runs-count">0</strong></div>
+        </div>
+      </div>
+      <div class="menu-right">
+        <div class="chapter-tag"><span>01</span><div><b data-i18n="chapter">EL FARO HA MUERTO</b><small data-i18n="chapter-sub">REACTIVA EL ÚLTIMO HAZ</small></div></div>
+        <div class="side-tip"><span class="tip-line"></span><div><b data-i18n="tip-title">REGLA DE ORO</b><p data-i18n="tip">La luz detiene a las sombras. Pero cada segundo encendida consume tu única oportunidad de ver el amanecer.</p></div></div>
+        <div class="menu-bottom-right"><span class="keycap">W A S D</span><span data-i18n="move">MOVERSE</span><span class="tiny-divider"></span><span class="keycap">RATÓN</span><span data-i18n="aim">APUNTAR</span></div>
+      </div>
+      <div class="menu-top-right">
+        <button id="sound-toggle" class="mini-button" aria-label="Sound toggle">♪ <span id="sound-label">SONIDO ON</span></button>
+        <button id="lang-toggle" class="mini-button">ES / EN</button>
+      </div>
+      <div class="version-mark">PC BUILD <span>0.7.0</span> · MODO PRUEBA: 8 SECTORES DESBLOQUEADOS</div>
+    </section>
+
+    <section id="how-screen" class="screen modal-screen hidden">
+      <div class="modal-card wide-card">
+        <div class="modal-top"><div><div class="eyebrow" data-i18n="manual">MANUAL DE CAMPO</div><h2 data-i18n="how-title">SOBREVIVE A LA OSCURIDAD</h2></div><button class="x-button" data-close="how-screen">×</button></div>
+        <div class="manual-grid">
+          <article><span class="manual-key">W A S D</span><h3 data-i18n="m-move">Desplazamiento</h3><p data-i18n="m-move-p">Muévete entre ruinas, recoge ecos y no dejes que te rodeen.</p></article>
+          <article><span class="manual-key">CLICK IZQ.</span><h3 data-i18n="m-light">Haz de luz</h3><p data-i18n="m-light-p">Mantén pulsado para abrasar sombras dentro del cono. Consume energía.</p></article>
+          <article><span class="manual-key">E</span><h3 data-i18n="m-pulse">Pulso de emergencia</h3><p data-i18n="m-pulse-p">Gasta energía para lanzar una onda que daña y repele a los enemigos cercanos.</p></article>
+          <article><span class="manual-key">ESPACIO</span><h3 data-i18n="m-dash">Impulso</h3><p data-i18n="m-dash-p">Haz una evasión rápida. Tiene enfriamiento: guárdala para escapar de un cerco.</p></article>
+          <article><span class="manual-key">Q</span><h3 data-i18n="m-dispel">Disipar</h3><p data-i18n="m-dispel-p">Una sola vez por turno: aturde a todos los enemigos activos durante 3 segundos.</p></article>
+          <article><span class="manual-key">ESC</span><h3 data-i18n="m-pause">Pausa</h3><p data-i18n="m-pause-p">Pausa o continúa la partida. Al subir de nivel, el tiempo se detiene para elegir una mejora.</p></article>
+          <article><span class="manual-key">3:30</span><h3 data-i18n="m-goal">Objetivo</h3><p data-i18n="m-goal-p">Sobrevive hasta que vuelva la señal y derrota al Guardián del Vacío. Cada turno es distinto.</p></article>
+        </div>
+        <button class="button primary modal-action" data-close="how-screen" data-i18n="understood">ENTENDIDO</button>
+      </div>
+    </section>
+
+    <section id="armory-screen" class="screen modal-screen hidden">
+      <div class="modal-card wide-card">
+        <div class="modal-top"><div><div class="eyebrow" data-i18n="between-runs">PROGRESO ENTRE TURNOS</div><h2 data-i18n="armory-title">TALLER DE ECOS</h2><p class="modal-subtitle" data-i18n="armory-sub">Los ecos que rescatas pueden reforzar tu siguiente expedición.</p></div><button class="x-button" data-close="armory-screen">×</button></div>
+        <div class="bank-banner"><span data-i18n="available">ECOS DISPONIBLES</span><strong><span class="spark-symbol">✦</span> <b id="armory-bank">0</b></strong></div>
+        <div id="upgrade-shop" class="shop-grid"></div>
+        <div class="shop-foot"><span data-i18n="shop-note">Las mejoras permanentes se guardan en este ordenador.</span><button class="button" data-close="armory-screen" data-i18n="back">VOLVER</button></div>
+      </div>
+    </section>
+
+    <section id="upgrade-screen" class="screen modal-screen hidden">
+      <div class="modal-card upgrade-card">
+        <div class="eyebrow" data-i18n="signal-upgrade">SEÑAL RECONSTRUIDA</div>
+        <h2 data-i18n="choose-upgrade">ELIGE UNA MODIFICACIÓN</h2>
+        <p class="modal-subtitle" data-i18n="upgrade-sub">Elige con cabeza. No volverás a ver estas opciones en este turno.</p>
+        <div id="upgrade-options" class="upgrade-grid"></div>
+      </div>
+    </section>
+
+    <section id="pause-screen" class="screen modal-screen hidden">
+      <div class="modal-card pause-card"><div class="eyebrow" data-i18n="paused">TRANSMISIÓN EN ESPERA</div><h2 data-i18n="pause-title">TURNO PAUSADO</h2><p class="modal-subtitle" data-i18n="pause-sub">La oscuridad también sabe esperar.</p><button id="resume-btn" class="button primary"><span data-i18n="resume">CONTINUAR</span></button><button id="quit-btn" class="button" data-i18n="quit">ABANDONAR TURNO</button></div>
+    </section>
+
+    <section id="result-screen" class="screen modal-screen hidden">
+      <div class="modal-card result-card"><div class="eyebrow" id="result-eyebrow">INFORME DE MISIÓN</div><h2 id="result-title">SEÑAL RECUPERADA</h2><p id="result-desc" class="modal-subtitle"></p><div class="result-stats" id="result-stats"></div><div class="result-buttons"><button id="retry-btn" class="button primary" data-i18n="retry">OTRO TURNO</button><button id="result-armory-btn" class="button" data-i18n="armory">TALLER DE ECOS</button><button id="menu-btn" class="button" data-i18n="main-menu">MENÚ PRINCIPAL</button></div></div>
+    </section>
+
+    <div id="toast" class="toast hidden" role="status"></div>
+    <div class="corner-hint" id="corner-hint"><span class="keycap">ESC</span> <span data-i18n="pause-hint">PAUSAR</span></div>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>

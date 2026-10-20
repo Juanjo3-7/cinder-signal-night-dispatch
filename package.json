@@ -1,0 +1,46 @@
+{
+  "name": "cinder-signal-night-dispatch",
+  "version": "0.7.0",
+  "description": "Prototipo 2D de supervivencia táctica con JavaScript y Canvas; build 0.7.0 para revisión de portfolio.",
+  "main": "main.cjs",
+  "author": "Juanjo3-7",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "electron": "^44.9.1",
+    "electron-builder": "^26.16.1"
+  },
+  "build": {
+    "appId": "com.indieprototype.cindersignalnightdispatch",
+    "productName": "CINDER SIGNAL - NIGHT DISPATCH",
+    "asar": true,
+    "files": [
+      "index.html",
+      "style.css",
+      "game.js",
+      "main.cjs",
+      "assets/**/*",
+      "README.md"
+    ],
+    "directories": {
+      "buildResources": "assets",
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "assets/app-icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
